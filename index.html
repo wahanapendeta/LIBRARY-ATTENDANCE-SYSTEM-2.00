@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WAHANAPENDETA</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>WAHANAPENDETA</h1>
+    </header>
+
+    <main id="app">
+      <!-- Step 1: Start -->
+      <section id="start" class="page active fade">
+        <button class="btn" onclick="goTo('menu')">Mula</button>
+      </section>
+
+      <!-- Step 2: Menu -->
+      <section id="menu" class="page fade">
+        <button class="btn" onclick="goTo('schedule')">Schedule</button>
+        <button class="btn" onclick="goTo('record')">Record</button>
+      </section>
+
+      <!-- Step 3a: Schedule -->
+      <section id="schedule" class="page fade">
+        <h2>Schedule</h2>
+        <table id="scheduleTable">
+          <tr>
+            <th>Hari</th>
+            <th>Aktiviti</th>
+          </tr>
+          <tr>
+            <td contenteditable="true">Isnin</td>
+            <td contenteditable="true">-</td>
+          </tr>
+          <tr>
+            <td contenteditable="true">Selasa</td>
+            <td contenteditable="true">-</td>
+          </tr>
+          <tr>
+            <td contenteditable="true">Rabu</td>
+            <td contenteditable="true">-</td>
+          </tr>
+          <tr>
+            <td contenteditable="true">Khamis</td>
+            <td contenteditable="true">-</td>
+          </tr>
+          <tr>
+            <td contenteditable="true">Jumaat</td>
+            <td contenteditable="true">-</td>
+          </tr>
+        </table>
+        <button class="btn back" onclick="goTo('menu')">? Kembali</button>
+      </section>
+
+      <!-- Step 3b: Record -->
+      <section id="record" class="page fade">
+        <h2>Record</h2>
+        <input type="text" id="recordName" placeholder="Masukkan nama" />
+        <button class="btn" onclick="addRecord()">Tambah</button>
+
+        <table id="recordTable">
+          <tr>
+            <th>Nama</th>
+            <th>Masa</th>
+            <th>Tarikh</th>
+          </tr>
+        </table>
+        <button class="btn back" onclick="goTo('menu')">? Kembali</button>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
