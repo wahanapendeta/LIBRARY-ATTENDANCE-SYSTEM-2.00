@@ -1,13 +1,13 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #152046;
+  background: #043108;
   color: #eee;
   text-align: center;
 }
 
 header {
-  background: #ac8f76; /* oren FELDA */
+  background: #50c878; /* oren FELDA */
   padding: 20px;
   border-radius: 0 0 24px 24px;
 }
@@ -33,7 +33,7 @@ h1 {
 /* Buttons */
 .btn {
   display: inline-block;
-  background: #152046;
+  background: #50c878;
   color: #fff;
   padding: 12px 24px;
   margin: 10px;
@@ -45,12 +45,12 @@ h1 {
 }
 
 .btn:hover {
-  background: #AA8F76;
+  background: #011f04;
   transform: scale(1.05);
 }
 
 .btn.back {
-  background: #C19976;
+  background: #444;
 }
 
 /* Tables */
@@ -90,7 +90,3 @@ td[contenteditable="true"] {
     transform: translateY(0);
   }
 }
-
-
-
-
