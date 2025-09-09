@@ -7,7 +7,7 @@ body {
 }
 
 header {
-  background: #50c878; /* oren FELDA */
+  background: #152046; /* oren FELDA */
   padding: 20px;
   border-radius: 0 0 24px 24px;
 }
@@ -90,3 +90,4 @@ td[contenteditable="true"] {
     transform: translateY(0);
   }
 }
+
