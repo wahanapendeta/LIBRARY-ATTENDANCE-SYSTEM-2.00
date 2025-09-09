@@ -33,7 +33,7 @@ h1 {
 /* Buttons */
 .btn {
   display: inline-block;
-  background: #96A4D3;
+  background: #152046;
   color: #fff;
   padding: 12px 24px;
   margin: 10px;
@@ -45,12 +45,12 @@ h1 {
 }
 
 .btn:hover {
-  background: #fff;
+  background: #AA8F76;
   transform: scale(1.05);
 }
 
 .btn.back {
-  background: #444;
+  background: #C19976;
 }
 
 /* Tables */
@@ -90,6 +90,7 @@ td[contenteditable="true"] {
     transform: translateY(0);
   }
 }
+
 
 
 
