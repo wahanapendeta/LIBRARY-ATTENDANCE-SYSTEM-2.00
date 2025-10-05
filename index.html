@@ -1,138 +1,105 @@
-// Navigation
-function goTo(pageId) {
-  document
-    .querySelectorAll(".page")
-    .forEach((p) => p.classList.remove("active"));
-  document.getElementById(pageId).classList.add("active");
+<!DOCTYPE html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Pengurusan PPS</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <h2>Pusat Sumber SMKBBS</h2>
+        <nav>
+          <button onclick="goTo('dashboard')">🏠 Dashboard</button>
+          <button onclick="goTo('schedule')">📅 Jadual</button>
+          <button onclick="goTo('record')">📝 Rekod</button>
+        </nav>
+      </aside>
 
-  document
-    .querySelectorAll(".sidebar button")
-    .forEach((b) => b.classList.remove("active"));
-  [...document.querySelectorAll(".sidebar button")]
-    .find((b) => b.getAttribute("onclick").includes(pageId))
-    ?.classList.add("active");
-}
+      <!-- Main content -->
+      <main class="content">
+        <!-- Dashboard -->
+        <section id="dashboard" class="page active">
+          <div class="card">
+            <h1>Selamat Datang 👋</h1>
+            <p>
+              Ini ialah <b>Sistem Pengurusan Pengawas Pusat Sumber</b> yang
+              merangkumi jadual bertugas dan rekod bertugas.
+            </p>
+          </div>
+        </section>
 
-// Toast message
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.className = "show";
-  setTimeout(() => {
-    toast.className = toast.className.replace("show", "");
-  }, 3000);
-}
+        <!-- Jadual -->
+        <section id="schedule" class="page">
+          <div class="card">
+            <h2>📅 Jadual Bertugas</h2>
+            <table id="scheduleTable">
+              <tr>
+                <th>Hari</th>
+                <th>Aktiviti</th>
+              </tr>
+              <tr>
+                <td contenteditable="true">Isnin</td>
+                <td contenteditable="true">-</td>
+              </tr>
+              <tr>
+                <td contenteditable="true">Selasa</td>
+                <td contenteditable="true">-</td>
+              </tr>
+              <tr>
+                <td contenteditable="true">Rabu</td>
+                <td contenteditable="true">-</td>
+              </tr>
+              <tr>
+                <td contenteditable="true">Khamis</td>
+                <td contenteditable="true">-</td>
+              </tr>
+              <tr>
+                <td contenteditable="true">Jumaat</td>
+                <td contenteditable="true">-</td>
+              </tr>
+            </table>
+            <button class="btn primary" onclick="saveSchedule()">
+              💾 Simpan Jadual
+            </button>
+          </div>
+        </section>
 
-// -------------------- Rekod --------------------
-function addRecord() {
-  const name = document.getElementById("recordName").value.trim();
-  if (!name) {
-    showToast("⚠️ Nama tidak boleh kosong!");
-    return;
-  }
+        <!-- Rekod -->
+        <section id="record" class="page">
+          <div class="card">
+            <h2>📝 Rekod Bertugas</h2>
+            <div class="form-row">
+              <input type="text" id="recordName" placeholder="Masukkan nama" />
+              <button class="btn primary" onclick="addRecord()">Tambah</button>
+            </div>
+            <table id="recordTable">
+              <tr>
+                <th>Nama</th>
+                <th>Masa</th>
+                <th>Tarikh</th>
+                <th>Tindakan</th>
+              </tr>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
 
-  const now = new Date();
-  const time = now.toLocaleTimeString("ms-MY", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  const date = now.toLocaleDateString("ms-MY", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+    <!-- Toast notification -->
+    <div id="toast"></div>
 
-  const table = document.getElementById("recordTable");
-  const row = table.insertRow(-1);
+    <script src="script.js"></script>
+  </body>
+</html>
 
-  row.insertCell(0).textContent = name;
-  row.insertCell(1).textContent = time;
-  row.insertCell(2).textContent = date;
-
-  const delCell = row.insertCell(3);
-  const delBtn = document.createElement("button");
-  delBtn.textContent = "❌";
-  delBtn.className = "btn";
-  delBtn.onclick = () => {
-    row.remove();
-    saveRecords();
-  };
-  delCell.appendChild(delBtn);
-
-  document.getElementById("recordName").value = "";
-  saveRecords();
-  showToast("✅ Rekod berjaya ditambah!");
-}
-
-function saveRecords() {
-  const rows = [...document.querySelectorAll("#recordTable tr")].slice(1); // exclude header
-  const data = rows.map((r) => [
-    r.cells[0].textContent,
-    r.cells[1].textContent,
-    r.cells[2].textContent,
-  ]);
-  localStorage.setItem("records", JSON.stringify(data));
-}
-
-function loadRecords() {
-  const data = JSON.parse(localStorage.getItem("records") || "[]");
-  const table = document.getElementById("recordTable");
-  data.forEach(([name, time, date]) => {
-    const row = table.insertRow(-1);
-    row.insertCell(0).textContent = name;
-    row.insertCell(1).textContent = time;
-    row.insertCell(2).textContent = date;
-
-    const delCell = row.insertCell(3);
-    const delBtn = document.createElement("button");
-    delBtn.textContent = "❌";
-    delBtn.className = "btn";
-    delBtn.onclick = () => {
-      row.remove();
-      saveRecords();
-    };
-    delCell.appendChild(delBtn);
-  });
-}
-
-// -------------------- Jadual --------------------
-function saveSchedule() {
-  const rows = [...document.querySelectorAll("#scheduleTable tr")].slice(1);
-  const data = rows.map((r) => [
-    r.cells[0].textContent,
-    r.cells[1].textContent,
-  ]);
-  localStorage.setItem("schedule", JSON.stringify(data));
-  showToast("💾 Jadual disimpan!");
-}
-
-function loadSchedule() {
-  const data = JSON.parse(localStorage.getItem("schedule") || "[]");
-  if (!data.length) return;
-
-  const table = document.getElementById("scheduleTable");
-  // clear rows kecuali header
-  while (table.rows.length > 1) {
-    table.deleteRow(1);
-  }
-
-  data.forEach(([hari, aktiviti]) => {
-    const row = table.insertRow(-1);
-    const hariCell = row.insertCell(0);
-    hariCell.textContent = hari;
-    hariCell.contentEditable = "true";
-
-    const aktCell = row.insertCell(1);
-    aktCell.textContent = aktiviti;
-    aktCell.contentEditable = "true";
-  });
-}
-
-// -------------------- Init --------------------
-window.onload = () => {
-  loadRecords();
-  loadSchedule();
-};
 
 
 
