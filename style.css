@@ -1,4 +1,4 @@
-body {:root {
+:root {
   --primary: #2563eb;
   --secondary: #10b981;
   --dark: #0f172a;
@@ -215,5 +215,3 @@ td[contenteditable="true"] {
     opacity: 0;
   }
 }
-
-
